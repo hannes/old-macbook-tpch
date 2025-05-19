@@ -1,0 +1,72 @@
+{
+    "result_set_size": 16,
+    "cumulative_rows_scanned": 47999917672,
+    "cumulative_cardinality": 228332403,
+    "extra_info": {},
+    "cpu_time": 1010.9729059962191,
+    "blocked_thread_time": 0.0,
+    "rows_returned": 1,
+    "query_name": "select\n\tsum(l_extendedprice * l_discount) as revenue\nfrom\n\tlineitem\nwhere\n\tl_shipdate >= date '1995-01-01'\n\tand l_shipdate < date '1995-01-01' + interval '1' year\n\tand l_discount between 0.02 - 0.01 and 0.02 + 0.01\n\tand l_quantity < 24;",
+    "latency": 136.634461,
+    "children": [
+        {
+            "result_set_size": 16,
+            "operator_timing": 2.2881009999951014,
+            "operator_rows_scanned": 0,
+            "cumulative_rows_scanned": 47999917672,
+            "operator_cardinality": 1,
+            "operator_type": "UNGROUPED_AGGREGATE",
+            "cumulative_cardinality": 228332403,
+            "cpu_time": 1010.9729059962191,
+            "operator_name": "UNGROUPED_AGGREGATE",
+            "extra_info": {
+                "Aggregates": "sum_no_overflow(#0)"
+            },
+            "children": [
+                {
+                    "operator_name": "PROJECTION",
+                    "cpu_time": 1008.684804996224,
+                    "extra_info": {
+                        "Projections": "(l_extendedprice * l_discount)",
+                        "Estimated Cardinality": "1199997941"
+                    },
+                    "cumulative_cardinality": 228332402,
+                    "operator_type": "PROJECTION",
+                    "operator_cardinality": 114166201,
+                    "cumulative_rows_scanned": 47999917672,
+                    "operator_rows_scanned": 0,
+                    "operator_timing": 5.98834299996374,
+                    "result_set_size": 913329608,
+                    "children": [
+                        {
+                            "result_set_size": 1826659216,
+                            "operator_timing": 1002.6964619962603,
+                            "operator_rows_scanned": 47999917672,
+                            "cumulative_rows_scanned": 47999917672,
+                            "operator_cardinality": 114166201,
+                            "operator_type": "TABLE_SCAN",
+                            "cumulative_cardinality": 114166201,
+                            "cpu_time": 1002.6964619962603,
+                            "operator_name": "SEQ_SCAN ",
+                            "extra_info": {
+                                "Table": "lineitem",
+                                "Type": "Sequential Scan",
+                                "Projections": [
+                                    "l_discount",
+                                    "l_extendedprice"
+                                ],
+                                "Filters": [
+                                    "l_shipdate>='1995-01-01'::DATE AND l_shipdate<'1996-01-01'::DATE",
+                                    "l_discount>=0.01 AND l_discount<=0.03",
+                                    "l_quantity<24.00"
+                                ],
+                                "Estimated Cardinality": "1199997941"
+                            },
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
